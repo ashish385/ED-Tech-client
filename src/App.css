@@ -1,0 +1,12 @@
+/* write your css here */
+
+html,body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.homepage-bg{
+    background-image: url("./assets/Images/bghome.svg");
+}
