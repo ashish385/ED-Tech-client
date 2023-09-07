@@ -1,6 +1,5 @@
 import React from 'react'
-import { HiMiniUsers } from "react-icons/hi2";
-import { FcFlowChart } from "react-icons/fc";
+
 
 const CourseCard = ({ cardData, currentCard, setCurrentCard }) => {
     return (
@@ -14,7 +13,7 @@ const CourseCard = ({ cardData, currentCard, setCurrentCard }) => {
               and structuring web pages, adding text, links, images, and more.
             </p>
           </div>
-          
+
           <div className="flex flex-row justify-between w-full py-3 px-4 border-t border-dashed">
             <div className="flex flex-row gap-3 text-richblack-400 items-center text-[16px] hover:text-blue-200">
               {/* <HiMiniUsers /> */}
