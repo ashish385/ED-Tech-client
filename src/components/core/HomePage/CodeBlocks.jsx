@@ -16,10 +16,10 @@ const CodeBlocks = ({
     <div>
       <div className={`flex flex-col ${position} my-20 justify-between `}>
         {/* section-1 */}
-        <div className="w-[50%] flex flex-col gap-3">
+        <div className="w-full md:w-[50%] flex flex-col gap-3">
           {heading}
           <div className="text-richblack-300 font-bold">{subheading}</div>
-          <div className="flex gap-7 mt-7">
+          <div className="flex gap-7 justify-center md:justify-start mt-7">
             <CTAButton active={ctabtn1.active} linkto={ctabtn1.linkto}>
               <div className="flex gap-3">
                 {ctabtn1.btnText}

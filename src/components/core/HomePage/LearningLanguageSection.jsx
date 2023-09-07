@@ -10,37 +10,37 @@ const LearningLanguageSection = () => {
     <div>
       <div className="mt-[150px]"></div>
       <div className="flex flex-col gap-5">
-        <div className="text-4xl font-semibold text-center">
+        <div className="text-3xl md:text-4xl font-semibold text-start md:text-center">
           Your swiss knife for
           <HighlightText text={"learning any language"} />
         </div>
-        <div className="text-center text-richblack-300 mx-auto text-base w-[72%]">
+        <div className="text-start md:text-center text-richblack-300 mx-auto text-base w-full md:w-[72%]">
           Using spin making learning multiple languages easy. with 20+ languages
           realistic voice-over, progress tracking, custom schedule and more.
         </div>
 
-        <div className="flex flex-row items-center justify-center mt-5">
+        <div className="flex flex-col md:flex-row items-center justify-center mt-5">
           <img
             src={KnowYourProgress}
             alt="KnowYourProgress"
-            className="object-cover -mr-32"
+            className="object-cover  md:-mr-32 "
           />
           <img
             src={CompareWithOther}
             alt="CompareWithOther"
-            className="object-cover "
+            className="object-cover -mt-12 md:mt-0 "
           />
           <img
             src={PlanYourLession}
             alt="PlanYourLession"
-            className="object-cover -ml-36"
+            className="object-cover -mt-20 md:-ml-36"
           />
-              </div>
-              <div className='flex justify-center'>
-                  <CTAButton active={true} linkto={"/signup"} >
-                      Lean More
-                  </CTAButton>
-              </div>
+        </div>
+        <div className="flex justify-center">
+          <CTAButton active={true} linkto={"/signup"}>
+            Lean More
+          </CTAButton>
+        </div>
       </div>
     </div>
   );

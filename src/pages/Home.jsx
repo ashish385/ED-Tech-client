@@ -7,6 +7,8 @@ import Banner from "../assets/Images/banner.mp4"
 import CodeBlocks from '../components/core/HomePage/CodeBlocks';
 import TimelineSection from '../components/core/HomePage/TimelineSection';
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection';
+import InstructorSection from '../components/core/HomePage/InstructorSection';
+import ExploreMore from '../components/core/HomePage/ExploreMore';
 
 const Home = () => {
   return (
@@ -22,16 +24,18 @@ const Home = () => {
           </div>
         </Link>
 
-        <div className="text-center text-4xl font-semibold mt-7">
+        <div className="text-center text-2xl md:text-4xl font-semibold mt-7">
           Empower Your Future with
-          <HighlightText text={"Coding Skills"} />
+          <HighlightText
+            text={"Coding Skills"}
+          />
         </div>
 
-        <div className="mt-4 w-[90%] text-center text-lg font-bold text-richblack-300">
-          With our online coding course, you can learn at your own pace, from
-          anywhere in the world, and get access to wealth of resources,
-          including hands-on projects,quizzes, and personlized feedback from
-          instructor
+        <div className="mt-4 w-[90%] text-start md:text-center text-sm  md:text-lg font-bold text-richblack-300">
+          With our online coding courses, you can learn at your own pace, from
+          anywhere in the world, and get access to a wealth of resources,
+          including hands-on projects, quizzes, and personalized feedback from
+          instructors.
         </div>
 
         <div className="flex flex-row gap-3 mt-4">
@@ -52,7 +56,7 @@ const Home = () => {
         {/* code section-1 */}
         <div>
           <CodeBlocks
-            position={"lg:flex-row"}
+            position={"flex-col md:flex-row"}
             heading={
               <div className="text-start text-3xl font-semibold mt-7">
                 Unlock your
@@ -124,6 +128,8 @@ const Home = () => {
             codeColor={"text-yellow-25"}
           />
         </div>
+
+        <ExploreMore />
       </div>
 
       {/* Section - 2 */}
@@ -145,14 +151,14 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="w-11/12 mx-auto max-w-maxContent flex flex-col items-center justify-between gap-7">
-          <div className="flex flex-row gap-5 mb-10 mt-[110px]">
-            <div className="text-4xl font-semibold w-[45%]">
+        <div className="w-11/12 mx-auto max-w-maxContent flex flex-col items-center justify-between gap-7 pb-12">
+          <div className="flex flex-col md:flex-row gap-5 mb-10 mt-[110px]">
+            <div className="text-2xl md:text-4xl font-semibold w-full md:w-[45%]">
               Get the Skills you need for a
               <HighlightText text={"Job that is in demand"} />
             </div>
-            <div className="flex flex-col gap-10 w-[40%] items-start">
-              <p className="text-[16px]">
+            <div className="flex flex-col gap-10 w-full md:w-[40%] items-start">
+              <p className="text-sm text-[16px]">
                 The modern StudyNotion is the dictates its own terms. Today, to
                 be a competitive specialist requires more than professional
                 skills.
@@ -170,6 +176,14 @@ const Home = () => {
       </div>
 
       {/* Section - 3 */}
+      <div className="w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-8 first-letter: bg-richblack-900 text-white pt-8 mx-auto">
+        <InstructorSection />
+        <h2 className=" text-start md:text-center text-2xl md:text-4xl font-semibold mt-8">
+          Review from other learners
+        </h2>
+
+        {/* Review slider here */}
+      </div>
 
       {/* Footer */}
     </>

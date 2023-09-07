@@ -35,12 +35,12 @@ const TimelineSection = () => {
   return (
     <>
       
-      <div className="flex flex-row gap-15 items-center">
-        <div className="w-[45%]  flex flex-col ">
+      <div className="flex flex-col md:flex-row gap-15 items-center">
+        <div className="w-full md:w-[45%]  flex flex-col  ">
           {timeline.map((element, index) => {
             return (
               <>
-                <div key={index} className="flex flex-row w-full gap-3 mt-2 ">
+                <div key={index} className="flex flex-row w-full gap-3 mt-2  ">
                   <div className=" w-8 h-8  rounded-full flex items-center justify-center">
                     <img src={element.Logo} alt="" />
                   </div>
@@ -56,8 +56,8 @@ const TimelineSection = () => {
             );
           })}
         </div>
-        <div className="relative shadow-blue-200 ">
-          <div className="absolute  w-full h-full shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] rounded-3xl"></div>
+        <div className="relative flex-1  shadow-blue-200 w-full ">
+          {/* <div className="absolute  w-full h-full shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] rounded-3xl"></div> */}
           <div className="px-5">
             <img
               src={TimelineImage}
@@ -66,8 +66,8 @@ const TimelineSection = () => {
             />
           </div>
 
-          <div className="absolute w-[70%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-caribbeangreen-700 flex flex-row justify-between text-white uppercase px-8 py-6">
-            <div className="flex flex-r gap-5 items-center  ">
+          <div className="absolute w-[70%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-caribbeangreen-700 flex flex-col md:flex-row justify-between text-white uppercase md:gap-3 px-8 py-6">
+            <div className="flex flex-row gap-5 items-center  ">
               <p className="text-3xl font-bold">10</p>
               <p className=" text-caribbeangreen-300">Years of Experience</p>
             </div>
