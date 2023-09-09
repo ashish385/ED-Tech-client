@@ -9,6 +9,7 @@ import TimelineSection from '../components/core/HomePage/TimelineSection';
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection';
 import InstructorSection from '../components/core/HomePage/InstructorSection';
 import ExploreMore from '../components/core/HomePage/ExploreMore';
+import Footer from "../components/common/Footer";
 
 const Home = () => {
   return (
@@ -145,7 +146,7 @@ const Home = () => {
                 </div>
               </CTAButton>
               <CTAButton active={false} linkto={"/signup"}>
-                <div>Lear More</div>
+                <div>Learn More</div>
               </CTAButton>
             </div>
           </div>
@@ -186,6 +187,7 @@ const Home = () => {
       </div>
 
       {/* Footer */}
+      <Footer />
     </>
   );
 }

@@ -14,7 +14,7 @@ const CodeBlocks = ({
 }) => {
   return (
     <div>
-      <div className={`flex flex-col ${position} my-20 justify-between `}>
+      <div className={`flex flex-col ${position} my-20 justify-between  gap-10`}>
         {/* section-1 */}
         <div className="w-full md:w-[50%] flex flex-col gap-3">
           {heading}
