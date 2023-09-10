@@ -7,18 +7,19 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import ProfileDropdown from "../core/Auth/ProfileDropdown";
 import { apiConnector } from "../../services/apiconnector";
 import { categories } from '../../services/apis';
-import {IoIosArrowDropdownCircle} from 'react-icons/io'
+import { IoIosArrowDropdownCircle } from 'react-icons/io'
+import { BsSearch } from "react-icons/bs";
 
-const subLinks = [
-  {
-    title: "web deb",
-    link: "/catalog/web-development",
-  },
-  {
-    title: "python",
-    link: "/catalog/python",
-  },
-];
+// const subLinkss = [
+//   {
+//     title: "web deb",
+//     link: "/catalog/web-development",
+//   },
+//   {
+//     title: "python",
+//     link: "/catalog/python",
+//   },
+// ];
 
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
@@ -26,20 +27,21 @@ const Navbar = () => {
   const { totalItems } = useSelector((state) => state.cart);
   const location = useLocation();
 
-    const [setsubLinks, setSetsubLinks] = useState([]);
+    const [subLinks, setSubLinks] = useState([]);
 
     const fetchSublinks = async () => {
       try {
         const result = await apiConnector("GET", categories.CATEGORIES_API);
         console.log("Printing Sublinks Detailes", result);
-        setSetsubLinks(result.data.data);
+        setSubLinks(result.data.allCategory);
       } catch (error) {
         console.log("Could not fetch category list");
       }
     };
     useEffect(() => {
         fetchSublinks();
-    },[])
+    }, [])
+  console.log("subLinks", subLinks);
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname);
   };
@@ -75,7 +77,7 @@ const Navbar = () => {
                             <div className="flex flex-col gap-4 px-4">
                               {subLinks.map((link, index) => (
                                 <Link key={index} to={link.link}>
-                                  {link.title}
+                                  {link.name}
                                 </Link>
                               ))}
                             </div>
@@ -104,12 +106,15 @@ const Navbar = () => {
           </nav>
 
           {/* buttons */}
-          <div className="flex gap-x-4 text-center text-white">
-            {user && user?.accountType != "Instructor" && (
-              <Link to={"/dashboard/cart"} className="relative">
-                <AiOutlineShoppingCart />
-                {totalItems > 0 && <span>{totalItems}</span>}
-              </Link>
+          <div className="flex gap-8 text-center text-white items-center ">
+            {user && user?.accountType !== "Instructor" && (
+              <div className="flex gap-5 ">
+                <div><BsSearch size={20} /></div>
+                <Link to={"/dashboard/cart"} className="relative">
+                  <AiOutlineShoppingCart size={20} />
+                  {totalItems > 0 && <span>{totalItems}</span>}
+                </Link>
+              </div>
             )}
             {token === null && (
               <Link to={"/login"}>
