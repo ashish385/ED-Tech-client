@@ -45,3 +45,16 @@ html,body{
         transform: rotate(1turn)
     }
 }
+
+/* About */
+.primary-gradient{
+    background: var(--gradient-05, linear-gradient(118deg, #1FA2FF -3.62%, #12D8FA 50.44%, #A6FFCB 104.51%));
+}
+
+.secondary-gradient{
+    color: var(--rich-black-100, #AFB2BF);
+}
+
+.yellow-gradient{
+    
+}
