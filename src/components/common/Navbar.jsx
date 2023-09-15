@@ -10,16 +10,7 @@ import { categories } from '../../services/apis';
 import { IoIosArrowDropdownCircle } from 'react-icons/io'
 import { BsSearch } from "react-icons/bs";
 
-// const subLinkss = [
-//   {
-//     title: "web deb",
-//     link: "/catalog/web-development",
-//   },
-//   {
-//     title: "python",
-//     link: "/catalog/python",
-//   },
-// ];
+
 
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
@@ -32,7 +23,7 @@ const Navbar = () => {
     const fetchSublinks = async () => {
       try {
         const result = await apiConnector("GET", categories.CATEGORIES_API);
-        console.log("Printing Sublinks Detailes", result);
+        // console.log("Printing Sublinks Detailes", result);
         setSubLinks(result.data.allCategory);
       } catch (error) {
         console.log("Could not fetch category list");
@@ -41,7 +32,7 @@ const Navbar = () => {
     useEffect(() => {
         fetchSublinks();
     }, [])
-  console.log("subLinks", subLinks);
+  // console.log("subLinks", subLinks);
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname);
   };

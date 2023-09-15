@@ -9,6 +9,13 @@ import ForgotPassword from "./pages/ForgotPassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import VerifyEmail from "./pages/VerifyEmail";
 import About from "./pages/About";
+import Contact from './pages/Contact';
+import Dashboard from './pages/Dashboard';
+import MyProfile from './components/core/Dashboard/MyProfile';
+import PrivateRoute from './components/core/Auth/PrivateRoute';
+import Error from './pages/Error'
+import Setting from "./components/core/Dashboard/Settings/Setting";
+import EnrolledCourses from "./components/core/Dashboard/Settings/EnrolledCourses";
 
 function App() {
   return (
@@ -60,11 +67,25 @@ function App() {
     <Route
           path="about"
           element={
-            <OpenRoute>
               <About />
-            </OpenRoute>
           }
-        />
+          />
+          
+          <Route path="/contact" element={<Contact />} />
+
+          <Route 
+      element={
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      }
+          >
+            <Route path="dashboard/my-profile" element={<MyProfile />} />
+            <Route path="dashboard/settings" element={<Setting />} />
+            <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
+          </Route>
+          
+          <Route path="*" element={<Error />} />
     </Routes>
 
    </div>
