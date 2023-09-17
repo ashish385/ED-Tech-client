@@ -39,13 +39,13 @@ const EnrolledCourses = () => {
           {/* header */}
 
           <div className=" w-full  flex flex-row  bg-richblack-700 px-4 py-3 text-richblack-300">
-            <p className=" w-[40%] ">Course Name</p>
-            <p className="  w-[20%] ">Durations</p>
-            <p className="  w-[40%] text-center md:text-start ">Progress</p>
+            <p className=" w-[50%] ">Course Name</p>
+            <p className=" w-[20%] ">Durations</p>
+            <p className=" w-[30%] text-start  ">Progress</p>
           </div>
           {/* data */}
           <div className="flex flex-row gap-2  border border-richblack-500 px-4 py-3">
-            <div className="w-[40%]  flex flex-col lg:flex-row gap-3 ">
+            <div className="w-[50%]  flex flex-col lg:flex-row gap-3 ">
               <img
                 src={testingImage}
                 alt=""
@@ -56,16 +56,16 @@ const EnrolledCourses = () => {
                 <p className="text-richblack-300">Short Description</p>
               </div>
             </div>
-            <div className="w-[20%] flex  items-center text-richblack-50">
+            <div className="w-[20%] flex items-center text-richblack-50">
               2hr 30 mins
             </div>
-            <div className="w-[40%] flex gap-4 justify-between items-center">
+            <div className="w-[30%] flex justify-between    gap-10 items-center">
               <div className="flex flex-col">
                 <span>Progress 65%</span>
                 <span>duration--</span>
               </div>
               <div className="flex justify-center items-center">
-                <SlOptionsVertical />
+                <SlOptionsVertical className="cursor-pointer" />
               </div>
             </div>
           </div>

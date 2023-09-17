@@ -23,26 +23,6 @@ const Setting = () => {
           {/* Delete Account */}
           <DeleteAccount />
 
-          <div className=" ww-full flex flex-row justify-between  gap-5  py-4 rounded-lg  ">
-            <div></div>
-            <div className='flex gap-2'>
-              {" "}
-              <IconBtn
-                text="Cancel"
-                active={false}
-                onclick={() => {
-                  //   navigate("/dashboard/settings");
-                }}
-              ></IconBtn>
-              <IconBtn
-                text="Save"
-                active={true}
-                onclick={() => {
-                  //   navigate("/dashboard/settings");
-                }}
-              ></IconBtn>
-            </div>
-          </div>
         </div>
       </div>
     </>

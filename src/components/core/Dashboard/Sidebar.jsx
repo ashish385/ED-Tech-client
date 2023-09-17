@@ -38,6 +38,7 @@ const Sidebar = () => {
           className="flex min-w-[230px] flex-col border-r-[1px] border-r-richblack-700
         h-screen bg-richblack-800 py-10"
         >
+          {/* for student */}
           <div className="flex flex-col">
             {sidebarLinks.map((link) => {
               if (link.type && user?.accountType !== link.type) return null;
@@ -46,6 +47,7 @@ const Sidebar = () => {
               );
             })}
           </div>
+
 
           <div className="mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-600"></div>
 
@@ -63,9 +65,6 @@ const Sidebar = () => {
             >
               <div
                 className="flex items-center ml-8 mt-2 gap-x-2"
-                // onClick={() => {
-                //   dispatch(logout(navigate));
-                // }}
               >
                 <VscSignOut className="text-lg" />
                 <span>Logout</span>
