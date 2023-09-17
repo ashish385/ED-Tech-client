@@ -17,11 +17,20 @@ const Sidebar = () => {
     const { loading: authLoading } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [confirmationModal, setConfirmationModal] = useState(null);
+  const [logoutModal, setLogoutModal] = useState(false);
 
     if (profileLoading || authLoading) {
       return <div className="mt-10">Loading...</div>;
-    }
+  }
+
+  const confirmation = {
+    text1: "Are You Sure ?",
+    text2: "You will be logged out of your Account",
+    btn1Text: "Logout",
+    btn2Text: "Cancel",
+    btn1Handler: () => dispatch(logout(navigate)),
+    btn2Handler: () => setLogoutModal(false),
+  };
   return (
     <div>
       <div className="text-white ">
@@ -46,35 +55,33 @@ const Sidebar = () => {
               iconName="VscSettingsGear"
             />
 
-            <button
-              onClick={() =>
-                setConfirmationModal({
-                  text1: "Are You Sure ?",
-                  text2: "You will be logged out of your Account",
-                  btn1Text: "Logout",
-                  btn2Text: "Cancel",
-                  btn1Handler: () => dispatch(logout(navigate)),
-                  btn2Handler: () => setConfirmationModal(null),
-                })
-              }
-              className="text-sm font-medium text-richblack-300 "
+            <div
+              onClick={() => {
+                setLogoutModal(!logoutModal);
+              }}
+              className="text-sm cursor-pointer font-medium text-richblack-100   "
             >
               <div
                 className="flex items-center ml-8 mt-2 gap-x-2"
-                onClick={() => {
-                  dispatch(logout(navigate));
-                }}
+                // onClick={() => {
+                //   dispatch(logout(navigate));
+                // }}
               >
                 <VscSignOut className="text-lg" />
                 <span>Logout</span>
               </div>
-            </button>
+            </div>
           </div>
         </div>
 
-        {confirmationModal && (
-          <ConfirmationModal modalData={confirmationModal} />
+        {logoutModal && (
+          <div className=''>
+            <ConfirmationModal modalData={confirmation} />
+          </div>
         )}
+        {/* {logoutModal && (
+          <div className='text-white'>hello</div>
+        )} */}
       </div>
     </div>
   );

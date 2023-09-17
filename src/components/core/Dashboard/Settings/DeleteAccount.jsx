@@ -1,30 +1,48 @@
-import React from 'react';
-import { RiDeleteBinLine } from "react-icons/ri";
+import { FiTrash2 } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
+import { deleteProfile } from "../../../../services/operations/settings";
 
-const DeleteAccount = () => {
+export default function DeleteAccount() {
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  async function handleDeleteAccount() {
+    try {
+      dispatch(deleteProfile(token, navigate));
+    } catch (error) {
+      console.log("ERROR MESSAGE - ", error.message);
+    }
+  }
+
   return (
-    <div>
-      <div className=" w-[90%] flex flex-row gap-10   px-10 py-8 rounded-lg bg-pink-900  ">
-        <div>
-          <div className="px-4 py-4 rounded-full bg-pink-800 hover:bg-pink-700 text-pink-500">
-            <RiDeleteBinLine />
-          </div>
+    <>
+      <div className="my-10 flex flex-row gap-x-5 rounded-md border-[1px] border-pink-700 bg-pink-900 p-8 px-12">
+        <div className="flex aspect-square h-14 w-14 items-center justify-center rounded-full bg-pink-700">
+          <FiTrash2 className="text-3xl text-pink-200" />
         </div>
-        <div className="flex flex-col gap-3 pl-4 pr-10">
-          <h1 className='text-xl'>Delete Account</h1>
-          <p className="text-[12px] text-start text-richblack-5">
-            Would you like to delete account?
-          </p>
-          <p className="text-[12px] text-richblack-5">
-            This account contains Paid Courses. Deleting your account will
-            remove all the contain associated with it.
-          </p>
-          <div className='italic text-pink-300 cursor-pointer px-1 py-2' >I want to delete my account.</div>
+        <div className="flex flex-col space-y-2">
+          <h2 className="text-lg font-semibold text-richblack-5">
+            Delete Account
+          </h2>
+          <div className="w-[100%] lg:w-3/5  text-pink-25">
+            <p>Would you like to delete account?</p>
+            <p>
+              This account may contain Paid Courses. Deleting your account is
+              permanent and will remove all the contain associated with it.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="w-fit cursor-pointer italic text-pink-300"
+            onClick={handleDeleteAccount}
+          >
+            I want to delete my account.
+          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
-
-export default DeleteAccount

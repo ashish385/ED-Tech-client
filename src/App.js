@@ -15,9 +15,17 @@ import MyProfile from './components/core/Dashboard/MyProfile';
 import PrivateRoute from './components/core/Auth/PrivateRoute';
 import Error from './pages/Error'
 import Setting from "./components/core/Dashboard/Settings/Setting";
-import EnrolledCourses from "./components/core/Dashboard/Settings/EnrolledCourses";
+import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
+import Wishlist from "./components/core/Dashboard/Wishlist";
+import Cart from "./components/core/Dashboard/Cart";
+import {ACCOUNT_TYPE} from './utils/constants'
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+   const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  
+  const { user } = useSelector((state) => state.profile)
   return (
     <>
       <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -64,25 +72,23 @@ function App() {
             </OpenRoute>
           }
         />
-    <Route
-          path="about"
-          element={
-              <About />
-          }
-          />
+    <Route path="about" element={<About />}/>
           
           <Route path="/contact" element={<Contact />} />
 
-          <Route 
-      element={
-        <PrivateRoute>
-          <Dashboard />
-        </PrivateRoute>
-      }
-          >
+          <Route element={<PrivateRoute><Dashboard /></PrivateRoute>}>
             <Route path="dashboard/my-profile" element={<MyProfile />} />
             <Route path="dashboard/settings" element={<Setting />} />
+           
+            {
+              user?.accountType === ACCOUNT_TYPE.STUDENT && (
+                <> 
+                   <Route path="dashboard/cart" element={<Cart />} />
             <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
+            <Route path="dashboard/whishlist" element={<Wishlist />} />
+                </>
+              )
+            }
           </Route>
           
           <Route path="*" element={<Error />} />

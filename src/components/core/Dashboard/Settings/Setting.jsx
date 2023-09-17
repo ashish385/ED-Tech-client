@@ -23,7 +23,7 @@ const Setting = () => {
           {/* Delete Account */}
           <DeleteAccount />
 
-          <div className=" w-[90%] flex flex-row justify-between  gap-5  py-8 rounded-lg  ">
+          <div className=" ww-full flex flex-row justify-between  gap-5  py-4 rounded-lg  ">
             <div></div>
             <div className='flex gap-2'>
               {" "}

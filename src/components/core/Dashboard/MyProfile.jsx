@@ -15,7 +15,7 @@ const MyProfile = () => {
         <div className="flex w-full flex-col gap-5 justify-center">
           {/* section-1 */}
 
-          <div className=" w-[80%] flex flex-row justify-between  gap-5 px-10 py-8 rounded-lg bg-richblack-800 ">
+          <div className=" w-full  flex flex-row justify-between  gap-5 px-10 py-8 rounded-lg bg-richblack-800 ">
             <img
               src={user?.image}
               alt={`profile-${user?.firstName}`}
@@ -40,7 +40,7 @@ const MyProfile = () => {
           </div>
 
           {/* section 2 */}
-          <div className=" w-[80%] flex flex-col   gap-5 px-10 py-8 rounded-lg bg-richblack-800 ">
+          <div className=" w-full flex flex-col   gap-5 px-10 py-8 rounded-lg bg-richblack-800 ">
             <div className="flex justify-between">
               <p>About</p>
               <IconBtn
@@ -59,7 +59,7 @@ const MyProfile = () => {
           </div>
 
           {/* section 3 */}
-          <div className=" w-[80%] flex flex-col  gap-5 px-10 py-8 rounded-lg bg-richblack-800 ">
+          <div className=" w-full flex flex-col  gap-5 px-10 py-8 rounded-lg bg-richblack-800 ">
             <div className="flex justify-between">
               <p className="text-xl font-bold">Personal Details</p>
               <IconBtn
