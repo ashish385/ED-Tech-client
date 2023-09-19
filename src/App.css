@@ -60,5 +60,19 @@ html,body{
 }
 
 .input-shadow{
-    box-shadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)";
+    box-shadow: 0px -1px 0px rgba(255, 255, 255, 0.18);
+    width: 100%;
+    border-radius: 8px ;
+    background: #2C333F;
+    --tw-bg-opacity: 1;
+        --tw-text-opacity: 1;
+            color: rgb(241 242 255 / var(--tw-text-opacity));
+            padding: 12px;
+}
+
+.new-course-dashed {
+    width: 100px;
+    height: 2px;
+    /* dashed border */
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
 }

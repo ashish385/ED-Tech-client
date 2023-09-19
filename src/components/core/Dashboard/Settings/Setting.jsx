@@ -3,7 +3,7 @@ import ChangeProfilePicture from './ChangeProfilePicture'
 import EditProfile from './EditProfile'
 import UpdatePassword from './UpdatePassword'
 import DeleteAccount from './DeleteAccount';
-import IconBtn from "../../../common/IconBtn";
+// import IconBtn from "../../../common/IconBtn";
 
 const Setting = () => {
   return (

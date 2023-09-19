@@ -40,18 +40,20 @@ const TimelineSection = () => {
           {timeline.map((element, index) => {
             return (
               <>
-                <div key={index} className="flex flex-row w-full gap-3 mt-2  ">
-                  <div className=" w-8 h-8  rounded-full flex items-center justify-center">
-                    <img src={element.Logo} alt="" />
+                <div key={index}>
+                  <div className="flex flex-row w-full gap-3 mt-2  ">
+                    <div className=" w-8 h-8  rounded-full flex items-center justify-center">
+                      <img src={element.Logo} alt="" />
+                    </div>
+                    <div className="flex flex-col ">
+                      <h2 className="font-semibold font-inter  text-[18px]">
+                        {element.heading}{" "}
+                      </h2>
+                      <p className="text-base">{element.Description} </p>
+                    </div>
                   </div>
-                  <div className="flex flex-col ">
-                    <h2 className="font-semibold font-inter  text-[18px]">
-                      {element.heading}{" "}
-                    </h2>
-                    <p className="text-base">{element.Description} </p>
-                  </div>
+                  {element.line}
                 </div>
-                {element.line}
               </>
             );
           })}

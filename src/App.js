@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Navbar from "./components/common/Navbar";
@@ -20,6 +20,7 @@ import Wishlist from "./components/core/Dashboard/Wishlist";
 import Cart from "./components/core/Dashboard/Cart";
 import {ACCOUNT_TYPE} from './utils/constants'
 import { useDispatch, useSelector } from "react-redux";
+import AddCourse from "./components/core/Dashboard/AddCourse";
 
 function App() {
    const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
   const { user } = useSelector((state) => state.profile)
   return (
     <>
+      <BrowserRouter>
       <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
     <Navbar/>
     <Routes >
@@ -89,12 +91,18 @@ function App() {
                 </>
               )
             }
+            {
+              user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+                <>
+                <Route path="dashboard/add-course" element={<AddCourse />} /></>
+              )
+            }
           </Route>
           
           <Route path="*" element={<Error />} />
     </Routes>
 
-   </div>
+   </div></BrowserRouter>
     </>
   );
 }

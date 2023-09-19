@@ -4,11 +4,11 @@ import { getUserEnrolledCourses } from '../../../services/operations/profileAPI'
 import testingImage from '../../../assets/Images/aboutus1.webp';
 import {  SlOptionsVertical } from "react-icons/sl";
 
-const tabsName = [
-  "All",
-  "Pendening",
-  "Completed"
-];
+// const tabsName = [
+//   "All",
+//   "Pendening",
+//   "Completed"
+// ];
 
 const EnrolledCourses = () => {
   // const { token } = useSelector((state) => state.auth);
