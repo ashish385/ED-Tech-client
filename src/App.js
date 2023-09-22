@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Navbar from "./components/common/Navbar";
@@ -21,88 +21,50 @@ import Cart from "./components/core/Dashboard/Cart";
 import {ACCOUNT_TYPE} from './utils/constants'
 import { useDispatch, useSelector } from "react-redux";
 import AddCourse from "./components/core/Dashboard/AddCourse";
+import { useEffect } from "react";
 
 function App() {
-   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  //  const dispatch = useDispatch();
   
   const { user } = useSelector((state) => state.profile)
   return (
     <>
-      <BrowserRouter>
-      <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
-    <Navbar/>
-    <Routes >
-      <Route path="/" element={<Home/>} />
-      <Route
-          path="/signup"
-          element={
-            <OpenRoute>
-              <Signup />
-            </OpenRoute>
-          }
-        />
-    <Route
-          path="login"
-          element={
-            <OpenRoute>
-              <Login />
-            </OpenRoute>
-          }
-        />
-    <Route
-          path="forgot-password"
-          element={
-            <OpenRoute>
-              <ForgotPassword />
-            </OpenRoute>
-          }
-        />
-    <Route
-          path="update-password/:id"
-          element={
-            <OpenRoute>
-              <UpdatePassword />
-            </OpenRoute>
-          }
-        />
-    <Route
-          path="verify-email"
-          element={
-            <OpenRoute>
-              <VerifyEmail />
-            </OpenRoute>
-          }
-        />
-    <Route path="about" element={<About />}/>
-          
-          <Route path="/contact" element={<Contact />} />
-
-          <Route element={<PrivateRoute><Dashboard /></PrivateRoute>}>
-            <Route path="dashboard/my-profile" element={<MyProfile />} />
-            <Route path="dashboard/settings" element={<Setting />} />
-           
-            {
-              user?.accountType === ACCOUNT_TYPE.STUDENT && (
-                <> 
-                   <Route path="dashboard/cart" element={<Cart />} />
-            <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
-            <Route path="dashboard/whishlist" element={<Wishlist />} />
-                </>
-              )
-            }
-            {
-              user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
-                <>
-                <Route path="dashboard/add-course" element={<AddCourse />} /></>
-              )
-            }
+    <BrowserRouter>
+    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
+      <Navbar/>
+      <Routes >
+        <Route path="/" element={<Home/>} />
+        <Route   path="/signup"   element={<OpenRoute><Signup /></OpenRoute>}/>
+        <Route   path="login"   element={<OpenRoute><Login /></OpenRoute>}/>
+        <Route   path="forgot-password"element={<OpenRoute><ForgotPassword /></OpenRoute>}/>
+        <Route   path="update-password/:id"   element={<OpenRoute><UpdatePassword /></OpenRoute>} />
+        <Route   path="verify-email"   element={<OpenRoute><VerifyEmail /></OpenRoute>} />
+        <Route path="about" element={<About />}/>
+        <Route path="/contact" element={<Contact />} />
+        
+        {/* Private Route */}
+        <Route element={<PrivateRoute><Dashboard /></PrivateRoute>}> 
+        <Route path="dashboard/my-profile" element={<MyProfile />} />
+        <Route path="dashboard/settings" element={<Setting />} />
+        
+        {/* Student Route */}
+        {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+        <>
+        {/* <Route path="dashboard/cart" element={<Cart />} /> */}
+        {/* <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} /> */}
+        {/* <Route path="dashboard/whishlist" element={<Wishlist />} /> */}
+        </>)}
+        
+              {/* Instructor Route */}
+        {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+        <>
+        <Route path="dashboard/add-course" element={<AddCourse />} />
+        </>)}
           </Route>
-          
           <Route path="*" element={<Error />} />
-    </Routes>
-
-   </div></BrowserRouter>
+      </Routes>
+    </div>
+    </BrowserRouter>
     </>
   );
 }

@@ -16,8 +16,10 @@ const IconBtn = ({
       onClick={onclick}
       type={type}
       className={`${
-        active ? "bg-yellow-50 text-richblack-900" : "bg-richblack-500 text-richblack-5"
-      }  px-8 py-2 rounded-md`}
+        active
+          ? "bg-yellow-50 text-richblack-900"
+          : "bg-richblack-500 text-richblack-5"
+      }  px-8 py-2 rounded-md ${customClasses}`}
     >
       {children ? (
         <>

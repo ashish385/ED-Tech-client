@@ -13,7 +13,13 @@ import { BsSearch } from "react-icons/bs";
 
 
 const Navbar = () => {
-  const { token } = useSelector((state) => state.auth);
+  let token;
+  useEffect(() => {
+     token = JSON.parse(localStorage.getItem("token"));
+    
+  },[token])
+  // console.log("nav-token",token);
+  // const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
   const { totalItems } = useSelector((state) => state.cart);
   const location = useLocation();

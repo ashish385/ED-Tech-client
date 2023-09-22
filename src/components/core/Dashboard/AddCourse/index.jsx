@@ -13,14 +13,12 @@ const CourseTips = [
 ];
 
 const AddCourse = () => {
+  console.log("Add Course");
   return (
     <>
       <div className="w-full text-white mx-auto flex flex-col-reverse lg:flex-row gap-5">
-        <div className="flex flex-col gap-4 w-full lg:w-[60%]">
-          <h1 className="text-xl font-semibold">Add Course</h1>
-          <div>
+        <div className=" w-full lg:w-[60%]">
             <RenderSteps />
-          </div>
         </div>
 
         <div className="w-full  lg:w-[40%] flex flex-col gap-3 bg-richblack-800 h-fit py-6 px-3 rounded-lg">

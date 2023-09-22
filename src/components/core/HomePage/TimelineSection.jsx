@@ -7,24 +7,28 @@ import TimelineImage from '../../../assets/Images/TimelineImage.png'
 
 const timeline = [
   {
+    id:1,
     Logo: Logo1,
     heading: "Leadership",
     Description: "Fully committed to the success company",
     line: <div className="w-[1px] h-[42px] ml-4 bg-pure-greys-200"></div>,
   },
   {
+    id:2,
     Logo: Logo2,
     heading: "Responsibility",
     Description: "Students will always be our top priority",
     line: <div className="w-[1px] h-[42px] ml-4 bg-pure-greys-200"></div>,
   },
   {
+    id:3,
     Logo: Logo3,
     heading: "Flexibility",
     Description: "The ability to switch is an important skills",
     line: <div className="w-[1px] h-[42px] ml-4 bg-pure-greys-200"></div>,
   },
   {
+    id:4,
     Logo: Logo4,
     heading: "Solve the problem",
     Description: "Code your way to a solution",
@@ -37,10 +41,10 @@ const TimelineSection = () => {
       
       <div className="flex flex-col md:flex-row gap-15 items-center">
         <div className="w-full md:w-[45%]  flex flex-col  ">
-          {timeline.map((element, index) => {
+          {timeline.map((element) => {
             return (
-              <>
-                <div key={index}>
+              
+                <div key={element.id}>
                   <div className="flex flex-row w-full gap-3 mt-2  ">
                     <div className=" w-8 h-8  rounded-full flex items-center justify-center">
                       <img src={element.Logo} alt="" />
@@ -52,9 +56,8 @@ const TimelineSection = () => {
                       <p className="text-base">{element.Description} </p>
                     </div>
                   </div>
-                  {element.line}
+                  <div>{element.line}</div>
                 </div>
-              </>
             );
           })}
         </div>

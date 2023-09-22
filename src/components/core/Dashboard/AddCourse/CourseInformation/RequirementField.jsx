@@ -58,13 +58,12 @@ label,
             }}
           />
           {errors[name] && <span>{label} is required!</span>}
-          <button
-            type="submit"
+          <div
             onClick={handleAddRequirement}
-            className="font-semibold text-yellow-50 mt-1 pl-2"
+            className="font-semibold text-yellow-50 mt-1 pl-2 cursor-pointer"
           >
             Add
-          </button>
+          </div>
         </div>
         {requirementList.length > 0 && (
           <ul className=" text-richblack-5 bg-richblack-900 rounded-md ">

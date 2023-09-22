@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { FaCheck } from "react-icons/fa6";
-import CourseBuilder from "./CourseBuilder/CourseBuilder";
 import PublishCourse from "./PublishCourse";
 import CourseInformationForm from "./CourseInformation/CourseInformationForm";
+import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm";
 
 const steps = [
   {
@@ -27,51 +27,59 @@ const RenderSteps = () => {
   const { step } = useSelector((state) => state.course);
   return (
     <>
-      <div className="flex w-full items-center  ">
-        {steps.map((item, index) => {
-          return (
-            <>
-              <div key={index} className="flex flex-col items-center ">
+      <div className="relative mb-2 flex w-full justify-center">
+        {steps.map((item) => (
+          <>
+            <div className="flex flex-col items-center " key={item.id}>
+              <button
+                className={`grid cursor-default aspect-square w-[34px] place-items-center rounded-full border-[1px] ${
+                  step === item.id
+                    ? "border-yellow-50 bg-yellow-900 text-yellow-50"
+                    : "border-richblack-700 bg-richblack-800 text-richblack-300"
+                } ${step > item.id && "bg-yellow-50 text-yellow-50"}} `}
+              >
+                {step > item.id ? (
+                  <FaCheck className="font-bold text-richblack-900" />
+                ) : (
+                  item.id
+                )}
+              </button>
+            </div>
+            {item.id !== steps.length && (
+              <>
                 <div
-                  className={`${
-                    step === item.id
-                      ? "bg-yellow-900 border-yellow-50 text-yellow-50"
-                      : "border-richblack-700 bg-richblack-800 text-richblack-300"
-                  } rounded-full  flex w-[45px] h-[45px] justify-center items-center`}
-                >
-                  {step > item.id ? (
-                    <FaCheck className="text-yellow-50 " />
-                  ) : (
-                    item.id
-                  )}
-                </div>
-                {/* <span className="w-[120px]  text-center">{item.title}</span> */}
-              </div>
-              {/* Add code for dashed between the labels */}
-              {item.dotted && (
-                <>
-                  <div
-                    className={`${
-                      step > item.id
-                        ? "border-yellow-400"
-                        : "border-richblack-500"
-                    }  w-full border-dashed  border-t-2 border-spacing-x-8 transition-all duration-200   `}
-                  ></div>
-                </>
-              )}
-            </>
-          );
-        })}
-      </div>
-      <div className="flex justify-between mt-2">
-        <p>Course Information</p>
-        <p className=" mr-4 md:mr-20">Course Builder</p>
-        <p>Publish</p>
+                  className={`h-[calc(34px/2)] w-[33%]  border-dashed border-b-2 ${
+                    step > item.id ? "border-yellow-50" : "border-richblack-500"
+                  } `}
+                ></div>
+              </>
+            )}
+          </>
+        ))}
       </div>
 
+      <div className="relative mb-16 flex w-full select-none justify-between">
+        {steps.map((item) => (
+          <>
+            <div
+              className="flex min-w-[130px] flex-col items-center gap-y-2"
+              key={item.id}
+            >
+              <p
+                className={`text-sm ${
+                  step >= item.id ? "text-richblack-5" : "text-richblack-500"
+                }`}
+              >
+                {item.title}
+              </p>
+            </div>
+          </>
+        ))}
+      </div>
+      {/* Render specific component based on current step */}
       {step === 1 && <CourseInformationForm />}
-      {step === 2 && <CourseBuilder />}
-      {step === 3 && <PublishCourse />}
+      {step === 2 && <CourseBuilderForm />}
+      {/* {step === 3 && <PublishCourse />} */}
     </>
   );
 };
