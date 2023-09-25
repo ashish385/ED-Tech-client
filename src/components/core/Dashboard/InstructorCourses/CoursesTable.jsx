@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { Table, Tr, Th, Thead, Tbody, Td } from "react-super-responsive-table";
 import { HiClock } from "react-icons/hi";
 import { FaCheck } from "react-icons/fa";
@@ -13,16 +13,18 @@ import {
   fetchInstructorCourses,
 } from "../../../../services/operations/course";
 import { useNavigate } from "react-router-dom";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 const CoursesTable = ({ courses, setCourses }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [confirmationModal, setConfirmationModal] = useState(null);
-  const TRUNCATE_LENGTH = 30;
+  // const TRUNCATE_LENGTH = 30;
 
     console.log("courses",courses);
+    
 
   async function handleCourseDelete(courseId) {
     setLoading(true);
@@ -37,9 +39,10 @@ const CoursesTable = ({ courses, setCourses }) => {
   return (
     <div className="w-full">
       <Table className="w-full rounded-xl border-2 border-richblack-700 ">
-        <Thead>
-          <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-700 px-6 py-2">
-            <Th className="flex-1 text-left text-sm font-medium uppercase text-richblack-100">
+        <Thead className="bg-pink-400">
+            <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-700 px-6 py-2">
+                      {/* <Th>Number</Th> */}
+            <Th className="flex-1 text-left text-sm font-medium uppercase text-richblack-5">
               Courses
             </Th>
             <Th className="text-left text-sm font-medium uppercase text-richblack-100">
@@ -67,7 +70,7 @@ const CoursesTable = ({ courses, setCourses }) => {
                 key={course._id}
                 className="flex gap-x-10 border-b border-richblack-800 px-6 py-8"
               >
-                <td className="flex flex-1 gap-x-4">
+                <Td className="flex flex-1 gap-x-4">
                   <img
                     src={course?.thumbnail}
                     alt={course?.courseName}
@@ -105,7 +108,7 @@ const CoursesTable = ({ courses, setCourses }) => {
                       </p>
                     )}
                   </div>
-                </td>
+                </Td>
                 <Td className="text-sm font-medium text-richblack-100">
                   2hr 30min
                 </Td>

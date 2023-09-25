@@ -30,7 +30,7 @@ const MyCourses = () => {
           active={true}
           text="Add Course"
           onclick={() => navigate("/dashboard/add-course")}
-          customClasses={"flex tems-center justify-between gap-1"}
+          customClasses={"flex tems-center text-sm justify-between gap-1"}
         >
           <VscAdd className='mt-1' />
         </IconBtn>
