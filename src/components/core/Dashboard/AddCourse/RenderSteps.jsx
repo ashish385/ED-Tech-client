@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { FaCheck } from "react-icons/fa6";
-import PublishCourse from "./PublishCourse";
+import PublishCourse from "./PublishCourse/PublishCourse";
 import CourseInformationForm from "./CourseInformation/CourseInformationForm";
 import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm";
+
 
 const steps = [
   {
@@ -79,7 +80,7 @@ const RenderSteps = () => {
       {/* Render specific component based on current step */}
       {step === 1 && <CourseInformationForm />}
       {step === 2 && <CourseBuilderForm />}
-      {/* {step === 3 && <PublishCourse />} */}
+      {step === 3 && <PublishCourse />}
     </>
   );
 };

@@ -23,7 +23,6 @@ export default function CourseInformationForm() {
     handleSubmit,
     setValue,
     getValues,
-    control,
     formState: { errors },
   } = useForm();
 
@@ -84,10 +83,10 @@ export default function CourseInformationForm() {
     // console.log(data)
 
     if (editCourse) {
-      // const currentValues = getValues()
-      // console.log("changes after editing form values:", currentValues)
-      // console.log("now course:", course)
-      // console.log("Has Form Changed:", isFormUpdated())
+      const currentValues = getValues()
+      console.log("changes after editing form values:", currentValues)
+      console.log("now course:", course)
+      console.log("Has Form Changed:", isFormUpdated())
       if (isFormUpdated()) {
         const currentValues = getValues();
         const formData = new FormData();
@@ -129,6 +128,7 @@ export default function CourseInformationForm() {
         setLoading(false);
         if (result) {
           dispatch(setStep(2));
+          localStorage.setItem("course", JSON.stringify(result));
           dispatch(setCourse(result));
         }
       } else {
@@ -151,6 +151,7 @@ export default function CourseInformationForm() {
     const result = await addCourseDetails(formData, token);
     if (result) {
       dispatch(setStep(2));
+      localStorage.setItem("course", JSON.stringify(result));
       dispatch(setCourse(result));
     }
     setLoading(false);
@@ -305,8 +306,11 @@ export default function CourseInformationForm() {
           </button>
         )}
         <IconBtn
+          type={"submit"}
+          active={true}
           disabled={loading}
           text={!editCourse ? "Next" : "Save Changes"}
+          customClasses={"flex items-center gap-1"}
         >
           <MdNavigateNext />
         </IconBtn>

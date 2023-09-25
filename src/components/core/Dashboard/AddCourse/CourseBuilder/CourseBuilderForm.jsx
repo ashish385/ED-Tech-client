@@ -1,177 +1,173 @@
-import React from 'react'
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { IoAddCircleOutline } from "react-icons/io5";
+import { MdNavigateNext } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  createSection,
+  updateSection,
+} from "../../../../../services/operations/course";
+import {
+  setCourse,
+  setEditCourse,
+  setStep,
+} from "../../../../../redux/slices/courseSlice";
 import IconBtn from "../../../../common/IconBtn";
-import {setCourse, setEditCourse, setStep} from '../../../../../redux/slices/courseSlice'
-import { FiPlusCircle } from "react-icons/fi";
-import {BiRightArrow} from 'react-icons/bi'
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { createSection, updateSection } from '../../../../../services/operations/course';
-import NestedView from './NestedView';
-import { useEffect } from 'react';
+import NestedView from "./NestedView";
 
-const CourseBuilderForm = () => {
+export default function CourseBuilderForm() {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
-  const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
   const { course } = useSelector((state) => state.course);
-  const [blankName, setBlankName] = useState('')
-  const [editSectionName, setEditSectionName] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const { token } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+  const [editSectionName, setEditSectionName] = useState(null);
+  const dispatch = useDispatch();
 
-  const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm();
+  // handle form submission
+  const onSubmit = async (data) => {
+    console.log("data",data)
+    setLoading(true);
 
-  //  useEffect(() => {
-  //    console.log("UPDATED",course);
-  //  }, [course]);
-
-  console.log("course", course);
-
-
-  function goBack() {
-    dispatch(setStep(1));
-    dispatch(setEditCourse(true))
-  }
-  
-  function cancelEdit() {
-    setEditSectionName(false);
-    // setBlankName(null)
-    setValue("sectionName","")
-  }
-
-  function goToNext() {
-    if (course.courseContent.length === 0) {
-      toast.error("Please add atleast One Section");
-      return
+    let result;
+    console.log("editSectionName", editSectionName);
+    if (editSectionName) {
+      console.log("editSectionName", editSectionName);
+      result = await updateSection(
+        {
+          sectionName: data.sectionName,
+          sectionId: editSectionName,
+          courseId: course._id,
+        },
+        token
+      );
+      // console.log("edit", result)
+    } else {
+      result = await createSection(
+        {
+          sectionName: data.sectionName,
+          courseId: course._id,
+        },
+        token
+      );
     }
-
-    if (course.courseContent.some((section) => section.subSection.length === 0)) {
-      toast.error("Please add atleast One leacture in each lecture");
-      return;
+    if (result) {
+      // console.log("section result", result)
+      dispatch(setCourse(result));
+      setEditSectionName(null);
+      setValue("sectionName", "");
     }
-
-    dispatch(setStep(3));
+    setLoading(false);
   };
 
-  console.log("onSubmit functioncall");
-
-async  function onSubmit(data) {
-  setLoading(true);
-  let result;
-  console.log("data", data);
-  console.log("data-section",data.sectionName);
-
-    
-  if (editSectionName) {
-    //we are editing the section name
-    result = await updateSection(
-      {
-        sectionName: data.sectionName,
-        sectionId: editSectionName,
-        courseId: course._id,
-      },
-      token
-    );
-  } else {
-    result = await createSection(
-      {
-        sectionName: data.sectionName,
-        courseId: course._id,
-      },
-      token
-    );
-  }
-
-  console.log("result-dispatch", result);
-  
-  // update value   
-  if (result) {
-    console.log("result-dispatch",result);
-    dispatch(setCourse(result));
-    setEditSectionName(false);
+  const cancelEdit = () => {
+    setEditSectionName(null);
     setValue("sectionName", "");
-  }
-
-  // loading false
-  setLoading(false)
-  }
+  };
 
   const handleChangeEditSectionName = (sectionId, sectionName) => {
+    console.log("Sectionid",sectionId);
     if (editSectionName === sectionId) {
-      cancelEdit(); 
+      cancelEdit();
       return;
     }
     setEditSectionName(sectionId);
+    console.log("Sectionid", sectionId);
+    // setValue("sectionId",sectionId)
     setValue("sectionName", sectionName);
-  }
+  };
+
+  const goToNext = () => {
+    if (course.courseContent.length === 0) {
+      toast.error("Please add atleast one section");
+      return;
+    }
+    if (
+      course.courseContent.some((section) => section.subSection.length === 0)
+    ) {
+      toast.error("Please add atleast one lecture in each section");
+      return;
+    }
+    dispatch(setStep(3));
+  };
+
+  const goBack = () => {
+    dispatch(setStep(1));
+    dispatch(setEditCourse(true));
+  };
+
   return (
-    <>
-      <div className="flex flex-col gap-4 justify-start bg-richblack-800 mt-5 px-6 py-8 rounded-xl">
-        <h1 className="text-xl font-semibold">Course Builder</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <label htmlFor="sectionName">Section Name</label>
-            <input
-              id="sectionName"
-              type="text"
-              placeholder="Add a section to build your course"
-              className="input-shadow"
-              {...register("sectionName", { required: true })}
-            />
-            {errors.sectionName && <span>Section name is required!</span>}
-          </div>
-          <div className="flex gap-4">
-            <IconBtn
-              type={"submit"}
-              outline={true}
-              text={`${
-                editSectionName ? "Edit Section Name" : "Create Section"
-              }`}
-              customClasses={
-                "text-yellow-100 hover:text-black hover:bg-yellow-100 font-semibold border border-yellow-100 flex items-center justify-center gap-2 w-fit bg-richblack-800"
-              }
-            >
-              <FiPlusCircle />
-            </IconBtn>
-            {editSectionName && (
-              <button
-                className="self-start flex items-center justify-center   pt-3 text-sm  rounded text-richblack-300 hover:text-richblue-300 border-b"
-                onClick={cancelEdit}
-              >
-                Cancel Edit
-              </button>
-            )}
-          </div>
-        </form>
-
-        {course?.courseContent.length > 0 && (
-          <NestedView
-            handleChangeEditSectionName={handleChangeEditSectionName}
+    <div className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6">
+      <p className="text-2xl font-semibold text-richblack-5">Course Builder</p>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div className="flex flex-col space-y-2">
+          <label className="text-sm text-richblack-5" htmlFor="sectionName">
+            Section Name <sup className="text-pink-200">*</sup>
+          </label>
+          <input
+            id="sectionName"
+            disabled={loading}
+            placeholder="Add a section to build your course"
+            {...register("sectionName", { required: true })}
+            className="input-shadow w-full"
           />
-        )}
-
-        {/* <NestedView handleChangeEditSectionName={handleChangeEditSectionName} /> */}
-
-        <div className="flex justify-end gap-3 font-bold">
-          <button
-            className="bg-richblack-500 hover:bg-richblack-600 hover:text-richblack-50 rounded-md px-4 text-black"
-            onClick={goBack}
-          >
-            Back
-          </button>
-          <IconBtn
-            active={true}
-            text="Next"
-            customClasses={"hover:bg-yellow-100 flex items-center "}
-            onclick={goToNext}
-          >
-            <BiRightArrow />
-          </IconBtn>
+          {errors.sectionName && (
+            <span className="ml-2 text-xs tracking-wide text-pink-200">
+              Section name is required
+            </span>
+          )}
         </div>
+        <div className="flex items-end gap-x-4">
+          <IconBtn
+            type="submit"
+            disabled={loading}
+            text={editSectionName ? "Edit Section Name" : "Create Section"}
+            outline={true}
+            customClasses={
+              "text-yellow-100 hover:text-black hover:bg-yellow-100 font-semibold border border-yellow-100 flex items-center justify-center gap-2 w-fit bg-richblack-800"
+            }
+          >
+            <IoAddCircleOutline size={20} />
+          </IconBtn>
+          {editSectionName && (
+            <button
+              type="button"
+              onClick={cancelEdit}
+              className="text-sm text-richblack-300 underline"
+            >
+              Cancel Edit
+            </button>
+          )}
+        </div>
+      </form>
+      {course?.courseContent?.length > 0 && (
+        <NestedView handleChangeEditSectionName={handleChangeEditSectionName} />
+      )}
+      {/* Next Prev Button */}
+      <div className="flex justify-end gap-x-3">
+        <button
+          onClick={goBack}
+          className="bg-richblack-500 hover:bg-richblack-600 hover:text-richblack-50 rounded-md px-4 text-black"
+        >
+          Back
+        </button>
+        <IconBtn
+          disabled={loading}
+          active={true}
+          text="Next"
+          onclick={goToNext}
+          customClasses={"hover:bg-yellow-100 flex items-center "}
+        >
+          <MdNavigateNext />
+        </IconBtn>
       </div>
-    </>
+    </div>
   );
 }
-
-export default CourseBuilderForm;
