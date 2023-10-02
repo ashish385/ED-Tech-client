@@ -23,7 +23,7 @@ export default function PublishCourse() {
       console.log("course",course);
     }
     console.log("user", course);
-  }, []);
+  });
 
   const goBack = () => {
     dispatch(setStep(2));

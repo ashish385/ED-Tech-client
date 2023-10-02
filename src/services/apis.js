@@ -1,8 +1,8 @@
 // REACT_APP_BASE_URL = "http://localhost:4000/api/v1"
 // REACT_APP_BASE_URL = "https://studynotion-server-smv5.onrender.com/api/v1"
 
-// const BASE_URL = "http://localhost:4000/api/v1";
-const BASE_URL = "https://studynotion-server-smv5.onrender.com/api/v1";
+const BASE_URL = "http://localhost:4000/api/v1";
+// const BASE_URL = "https://studynotion-server-smv5.onrender.com/api/v1";
 
 // AUTH ENDPOINTS
 export const endpoints = {
@@ -59,7 +59,7 @@ export const categories = {
 // CATALOG PAGE DATA
 export const catalogData = {
   CATALOGPAGEDATA_API: BASE_URL + "/course/getCategoryPageDetails",
-}
+};
 // CONTACT-US API
 export const contactusEndpoint = {
   CONTACT_US_API: BASE_URL + "/reach/contact",

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { getUserEnrolledCourses } from '../../../services/operations/profileAPI';
 import testingImage from '../../../assets/Images/aboutus1.webp';
 import {  SlOptionsVertical } from "react-icons/sl";
+import { useNavigate } from 'react-router-dom';
 
 // const tabsName = [
 //   "All",
@@ -11,103 +12,112 @@ import {  SlOptionsVertical } from "react-icons/sl";
 // ];
 
 const EnrolledCourses = () => {
-  // const { token } = useSelector((state) => state.auth);
-  const token = window.localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null;
-  console.log("en-token",token);
+  const navigate = useNavigate();
+  const { token } = useSelector((state) => state.auth);
+  const [refresfPage, setRefresfPage] = useState(true);
+  // const token = window.localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null;
 
   const [enrolledCourses, setEnrolledCourses] = useState(null);
 
-    const getEnrolledCourses = async () => {
-         try {
-           const response =  getUserEnrolledCourses(token)
-           console.log("enrolled Course ->",response);
-           setEnrolledCourses(response);
-         } catch (error) {
-            console.log(error.message);
-         }
-     }
+
     useEffect(() => {
-      getEnrolledCourses();
-    },[])
+      const fetchCourses = async () => {
+        const result = await getUserEnrolledCourses(token);
+        if (result) {
+          setEnrolledCourses(result);
+        }
+      };
+      fetchCourses();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+  // const getEnrolledCourses = async () => {
+
+  //     const response = getUserEnrolledCourses(token);
+  //     if (response) {
+  //       setEnrolledCourses(response);
+  //     }
+  //     console.log("response", response);
+  // };
+
+  // console.log("enrolled", enrolledCourses);
+
+
+  // useEffect(() => {
+  //   if (refresfPage) {
+  //     getEnrolledCourses();
+  //     setRefresfPage(false);
+  //     console.log("enrolled", enrolledCourses);
+  //   }
+  // })
+
+  console.log("enrolled Courseses data ===>", enrolledCourses);
   return (
     <div>
-      <div>
-        <div>
-          <h1 className="text-white text-xl">Enrolled Courses</h1>
+      <div className="text-3xl text-richblack-50">Enrolled Courses</div>
+      {!enrolledCourses ? (
+        <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+          <div className="spinner"></div>
         </div>
-        <div className="w-full flex flex-col mx-auto text-white border border-richblack-500 rounded-md">
-          {/* header */}
-
-          <div className=" w-full  flex flex-row  bg-richblack-700 px-4 py-3 text-richblack-300">
-            <p className=" w-[50%] ">Course Name</p>
-            <p className=" w-[20%] ">Durations</p>
-            <p className=" w-[30%] text-start  ">Progress</p>
+      ) : !enrolledCourses.length ? (
+        <p className="grid h-[10vh] w-full place-content-center text-richblack-5">
+          You have not enrolled in any course yet.
+          {/* TODO: Modify this Empty State */}
+        </p>
+      ) : (
+        <div className="my-8 text-richblack-5">
+          {/* Headings */}
+          <div className="flex rounded-t-lg bg-richblack-500 ">
+            <p className="w-[45%] px-5 py-3">Course Name</p>
+            <p className="w-1/4 px-2 py-3">Duration</p>
+            <p className="flex-1 px-2 py-3">Progress</p>
           </div>
-          {/* data */}
-          <div className="flex flex-row gap-2  border border-richblack-500 px-4 py-3">
-            <div className="w-[50%]  flex flex-col lg:flex-row gap-3 ">
-              <img
-                src={testingImage}
-                alt=""
-                className=" w-full md:w-[52px]  rounded-md"
-              />
-              <div className=" flex flex-col justify-center items-start">
-                <p className="text-richblack-50">The Complete Python</p>
-                <p className="text-richblack-300">Short Description</p>
+          {/* Course Names */}
+          {enrolledCourses.map((course, i, arr) => (
+            <div
+              className={`flex items-center border border-richblack-700 ${
+                i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"
+              }`}
+              key={i}
+            >
+              <div
+                className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
+                onClick={() => {
+                  navigate(
+                    `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
+                  );
+                }}
+              >
+                <img
+                  src={course.thumbnail}
+                  alt="course_img"
+                  className="h-14 w-14 rounded-lg object-cover"
+                />
+                <div className="flex max-w-xs flex-col gap-2">
+                  <p className="font-semibold">{course.courseName}</p>
+                  <p className="text-xs text-richblack-300">
+                    {course.courseDescription.length > 50
+                      ? `${course.courseDescription.slice(0, 50)}...`
+                      : course.courseDescription}
+                  </p>
+                </div>
+              </div>
+              <div className="w-1/4 px-2 py-3">{course?.totalDuration}</div>
+              <div className="flex w-1/5 flex-col gap-2 px-2 py-3">
+                <p>Progress: {course.progressPercentage || 0}%</p>
+                {/* <ProgressBar
+                  completed={course.progressPercentage || 0}
+                  height="8px"
+                  isLabelVisible={false}
+                /> */}
               </div>
             </div>
-            <div className="w-[20%] flex items-center text-richblack-50">
-              2hr 30 mins
-            </div>
-            <div className="w-[30%] flex justify-between    gap-10 items-center">
-              <div className="flex flex-col">
-                <span>Progress 65%</span>
-                <span>duration--</span>
-              </div>
-              <div className="flex justify-center items-center">
-                <SlOptionsVertical className="cursor-pointer" />
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-      </div>
+      )}
     </div>
   );
 }
 
 export default EnrolledCourses
 
-{/* <div className="flex flex-row mt-5 rounded-full shadow shadow-richblack-500 gap-1   bg-richblack-800 mb-8  ">
-          {
-            !enrolledCourses ? (<div>
-              Loading...
-            </div>)
-              :!enrolledCourses.length? (<p>You have not enrolled any course yet</p>)
-              :(<div>
-                <div>
-                  <p>Course Name</p>
-                  <p>Durations</p>
-                  <p>Progress</p>
-                </div>
-                {/* start card */}
-                // {
-                  // enrolledCourses.map((course, index) => (
-                    // <div>
-                    //   <div>
-                    //     <img src="" alt="" />
-                    //     <div>
-                    //       <p>{course.courseName}</p>
-                    //       <p>{course.courseDescription }</p>
-                    //     </div>
-                    //   </div>
-
-                    //   <div>
-                    //     {course?.totalDuration}
-                    //   </div>
-                    //   </div >
-              //     ))
-              //   }
-              // </div>)
-          // }
-         
-        // </div> */}

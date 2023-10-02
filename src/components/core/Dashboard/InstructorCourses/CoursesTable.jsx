@@ -14,6 +14,7 @@ import {
 } from "../../../../services/operations/course";
 import { useNavigate } from "react-router-dom";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+  const TRUNCATE_LENGTH = 30;
 
 const CoursesTable = ({ courses, setCourses }) => {
   // const dispatch = useDispatch();
@@ -78,18 +79,18 @@ const CoursesTable = ({ courses, setCourses }) => {
                   />
                   <div className="flex flex-col justify-between">
                     <p className="text-lg font-semibold text-richblack-5">
-                                {/* {course.courseName} */}
-                                Python
+                                {course.courseName}
+                                {/* Python */}
                     </p>
                     <p className="text-xs text-richblack-300">
-                      {/* {course.courseDescription.split(" ").length >
+                      {course.courseDescription.split(" ").length >
                       TRUNCATE_LENGTH
                         ? course.courseDescription
                             .split(" ")
                             .slice(0, TRUNCATE_LENGTH)
                             .join(" ") + "..."
-                        : course.courseDescription} */}
-                                python is a programming
+                        : course.courseDescription}
+                                {/* python is a programming */}
                     </p>
                     <p className="text-[12px] text-white">
                       Created: {formattedDate(course.createdAt)}

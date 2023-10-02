@@ -11,7 +11,8 @@ import {
   deleteSubSection,
 } from "../../../../../services/operations/course";
 import { setCourse } from "../../../../../redux/slices/courseSlice";
-import ConfirmationModal from "../../../../common/ConfirmationModal";
+// import ConfirmationModal from "../../../../common/ConfirmationModal";
+import ConfirmationsModal from '../../../../common/ConfirmationsModal'
 import SubSectionModal from "./SubSectionModal";
 import { useEffect } from "react";
 
@@ -74,14 +75,13 @@ export default function NestedView({ handleChangeEditSectionName, setEditSection
               </div>
               <div className="flex items-center gap-x-3">
                 <button
-                  onClick={() =>
-                  {
+                  onClick={() => {
                     handleChangeEditSectionName(
                       section._id,
                       section.sectionName
                     );
-                          setEditSectionName(true)}
-                  }
+                    setEditSectionName(true);
+                  }}
                 >
                   <MdEdit className="text-xl text-richblack-300" />
                 </button>
@@ -182,7 +182,7 @@ export default function NestedView({ handleChangeEditSectionName, setEditSection
       )}
       {/* Confirmation Modal */}
       {confirmationModal ? (
-        <ConfirmationModal modalData={confirmationModal} />
+        <ConfirmationsModal modalData={confirmationModal} />
       ) : (
         <></>
       )}

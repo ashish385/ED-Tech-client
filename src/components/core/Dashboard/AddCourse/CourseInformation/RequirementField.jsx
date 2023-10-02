@@ -17,11 +17,12 @@ label,
       required: true,
       validate: (value) => value.length > 0
     });
-  }, []);
+  });
     
-    useEffect(() => {
-        setValue(name,requirementList)
-    },[requirementList])
+  useEffect(() => {
+    setValue(name, requirementList);
+  });
+      // [requirementList];
 
   const handleAddRequirement = async () => {
     if (requirement) {

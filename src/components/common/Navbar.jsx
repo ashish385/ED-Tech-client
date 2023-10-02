@@ -7,8 +7,8 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import ProfileDropdown from "../core/Auth/ProfileDropdown";
 import { apiConnector } from "../../services/apiconnector";
 import { categories } from '../../services/apis';
-import { IoIosArrowDropdownCircle } from 'react-icons/io'
-import { BsSearch } from "react-icons/bs";
+// import { IoIosArrowDropdownCircle } from 'react-icons/io'
+import { BsChevronDown, BsSearch } from "react-icons/bs";
 
 
 
@@ -19,21 +19,24 @@ const Navbar = () => {
   const { totalItems } = useSelector((state) => state.cart);
   const location = useLocation();
 
-    const [subLinks, setSubLinks] = useState([]);
+  const [subLinks, setSubLinks] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const fetchSublinks = async () => {
-      try {
-        const result = await apiConnector("GET", categories.CATEGORIES_API);
-        // console.log("Printing Sublinks Detailes", result);
-        setSubLinks(result.data.allCategory);
-      } catch (error) {
-        console.log("Could not fetch category list");
-      }
+     setLoading(true);
+     try {
+       const res = await apiConnector("GET", categories.CATEGORIES_API);
+       console.log("getAllCategories api =====>",res);
+       setSubLinks(res.data.data);
+     } catch (error) {
+       console.log("Could not fetch Categories.", error);
+     }
+     setLoading(false);
     };
     useEffect(() => {
         fetchSublinks();
     }, [])
-  // console.log("subLinks", subLinks);
+  console.log("subLinks", subLinks);
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname);
   };
@@ -47,38 +50,49 @@ const Navbar = () => {
 
           {/* Nav links */}
           <nav>
-            <ul className="flex gap-x-8 text-richblack-25">
+            <ul className="flex gap-x-6 text-richblack-25">
               {NavbarLinks.map((link, index) => (
                 <li key={index}>
-                  {/* <NavLink></NavLink> */}
                   {link.title === "Catalog" ? (
-                    <div className="relative flex items-center gap-2 group">
-                      <p>{link?.title}</p>
-                      <IoIosArrowDropdownCircle />
-
+                    <>
                       <div
-                        className="invisible absolute
-                               left-[50%] translate-x-[-50%]
-                               top-[50%] translate-y-[25%] flex flex-col rounded-md
-                               bg-richblack-25 p-4 text-richblack-900 opacity-0 transition-all duration-200
-                               group-hover:visible group-hover:opacity-100 md:w-[200px] group-hover:z-10 "
+                        className={`group relative flex cursor-pointer items-center gap-1 ${
+                          matchRoute("/catalog/:catalogName")
+                            ? "text-yellow-25"
+                            : "text-richblack-25"
+                        }`}
                       >
-                        <div className="absolute left-[60%] translate-y-[-40%] top-0 h-6 w-6 rotate-45  bg-richblack-25"></div>
-                        <div>
-                          {subLinks.length > 0 ? (
-                            <div className="flex flex-col gap-4 px-4">
-                              {subLinks.map((link, index) => (
-                                <Link key={index} to={link.link}>
-                                  {link.name}
-                                </Link>
-                              ))}
-                            </div>
+                        <p>{link.title}</p>
+                        <BsChevronDown />
+                        <div className="invisible absolute left-[50%] top-[50%] z-[1000] flex w-[200px] translate-x-[-50%] translate-y-[3em] flex-col rounded-lg bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-[1.65em] group-hover:opacity-100 lg:w-[300px]">
+                          <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5"></div>
+                          {loading ? (
+                            <p className="text-center text-white">Loading...</p>
+                          ) : subLinks.length  ? (
+                            <>
+                              {subLinks
+                                ?.filter(
+                                  (subLink) => subLink?.courses?.length > 0
+                                )
+                                ?.map((subLink, i) => (
+                                  <Link
+                                    to={`/catalog/${subLink.name
+                                      .split(" ")
+                                      .join("-")
+                                      .toLowerCase()}`}
+                                    className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
+                                    key={i}
+                                  >
+                                    <p className="text-black">{subLink.name}</p>
+                                  </Link>
+                                ))}
+                            </>
                           ) : (
-                            <div></div>
+                            <p className="text-center">No Courses Found</p>
                           )}
                         </div>
                       </div>
-                    </div>
+                    </>
                   ) : (
                     <Link to={link?.path}>
                       <p
@@ -101,7 +115,9 @@ const Navbar = () => {
           <div className="flex gap-8 text-center text-white items-center ">
             {user && user?.accountType !== "Instructor" && (
               <div className="flex gap-5 ">
-                <div><BsSearch size={20} /></div>
+                <div>
+                  <BsSearch size={20} />
+                </div>
                 <Link to={"/dashboard/cart"} className="relative">
                   <AiOutlineShoppingCart size={20} />
                   {totalItems > 0 && <span>{totalItems}</span>}
@@ -115,7 +131,7 @@ const Navbar = () => {
                 </button>
               </Link>
             )}
-            {!token  && (
+            {!token && (
               <Link to={"/signup"}>
                 <button className="border border-richblack-700 bg-richblack-800 px-3 py-2 text-richblack-100 rounded-md hover:bg-richblack-900 transition-all duration-200 scale-95">
                   Sign up
