@@ -8,8 +8,8 @@ const Cart = () => {
   return (
     <div className="text-white">
       <div>
-        <h1>Your Cart</h1>
-        <p>{totalItems} Course in cart</p>
+        <h1 className="text-3xl font-semibold">Your Cart</h1>
+        <p className="mt-5 text-richblack-300 border-b">{totalItems} Course in Cart</p>
         <div>
           {total > 0 ? (
             <div>
@@ -17,8 +17,8 @@ const Cart = () => {
               <RenderTotalAmount />
             </div>
           ) : (
-            <div>
-              <p>Your cart is empty</p>
+            <div className="mt-10">
+              <p className="text-center text-richblack-100 text-3xl font-semibold">Your cart is empty</p>
             </div>
           )}
         </div>

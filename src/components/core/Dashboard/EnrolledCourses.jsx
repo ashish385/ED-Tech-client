@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getUserEnrolledCourses } from '../../../services/operations/profileAPI';
-import testingImage from '../../../assets/Images/aboutus1.webp';
 import {  SlOptionsVertical } from "react-icons/sl";
 import { useNavigate } from 'react-router-dom';
+import ProgressBar from '@ramonak/react-progress-bar';
 
 // const tabsName = [
 //   "All",
@@ -31,16 +31,7 @@ const EnrolledCourses = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-  // const getEnrolledCourses = async () => {
 
-  //     const response = getUserEnrolledCourses(token);
-  //     if (response) {
-  //       setEnrolledCourses(response);
-  //     }
-  //     console.log("response", response);
-  // };
-
-  // console.log("enrolled", enrolledCourses);
 
 
   // useEffect(() => {
@@ -105,11 +96,11 @@ const EnrolledCourses = () => {
               <div className="w-1/4 px-2 py-3">{course?.totalDuration}</div>
               <div className="flex w-1/5 flex-col gap-2 px-2 py-3">
                 <p>Progress: {course.progressPercentage || 0}%</p>
-                {/* <ProgressBar
+                <ProgressBar
                   completed={course.progressPercentage || 0}
                   height="8px"
-                  isLabelVisible={false}
-                /> */}
+                  isLabelVisible={true}
+                />
               </div>
             </div>
           ))}

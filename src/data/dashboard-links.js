@@ -50,8 +50,8 @@ export const sidebarLinks = [
   },
   {
     id: 8,
-    name: "Courses",
-    path: "/dashboard/courses",
+    name: "My Cart",
+    path: "/dashboard/cart",
     type: ACCOUNT_TYPE.STUDENT,
     icon: "VscHistory",
   },

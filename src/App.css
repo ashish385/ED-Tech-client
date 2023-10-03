@@ -170,3 +170,23 @@ html,body{
         transform: scaleY(-1) rotate(-135deg);
     }
 }
+
+.subSection-animation{
+    animation: my-animation 1s ease-in-out;
+}
+
+@keyframes my-animation {
+    0% {
+            opacity: 0;
+            height: 0%;
+        }
+
+    50%{
+        height: 0%;
+    }
+    
+        100% {
+            opacity: 1;
+            height: 0%;
+        }
+}
