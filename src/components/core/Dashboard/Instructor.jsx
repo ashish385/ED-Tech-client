@@ -15,7 +15,7 @@ const Instructor = () => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    (async () => {
+    ; (async () => {
       setLoading(true);
       const instructorApiData = await getInstructorData(token);
       const result = await fetchInstructorCourses(token);
@@ -27,7 +27,7 @@ const Instructor = () => {
       }
       setLoading(false);
     })();
-  });
+  },[token]);
 
   const totalAmount = instructorData?.reduce(
     (acc, curr) => acc + curr.totalAmountGenerated,
