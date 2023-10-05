@@ -190,3 +190,12 @@ html,body{
             height: 0%;
         }
 }
+
+overflow-hidden::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar thumb (draggable part) */
+.overflow-hidden::-webkit-scrollbar-thumb {
+    display: none;
+}

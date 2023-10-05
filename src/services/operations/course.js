@@ -399,6 +399,7 @@ export const markLectureAsComplete = async (data, token) => {
 export const createRating = async (data, token) => {
   const toastId = toast.loading("Loading...")
   let success = false
+  console.log("createRating data", data);
   try {
     const response = await apiConnector("POST", CREATE_RATING_API, data, {
       Authorization: `Bearer ${token}`,

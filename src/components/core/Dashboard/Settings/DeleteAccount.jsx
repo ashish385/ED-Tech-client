@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { deleteProfile } from "../../../../services/operations/settings";
+import { useState } from "react";
+import ConfirmationsModal from "../../../common/ConfirmationsModal";
 
 export default function DeleteAccount() {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [deleteAccount, setDeleteAccount] = useState(null);
 
   async function handleDeleteAccount() {
     try {
@@ -37,12 +40,23 @@ export default function DeleteAccount() {
           <button
             type="button"
             className="w-fit cursor-pointer italic text-pink-300"
-            onClick={handleDeleteAccount}
+            // onClick={handleDeleteAccount}
+            onClick={() => {
+              setDeleteAccount({
+                text1: "Are You Sure ?",
+                text2: "You will not access  your Account in future",
+                btn1Text: "Delete",
+                btn2Text: "Cancel",
+                btn1Handler: () => handleDeleteAccount,
+                btn2Handler: () => setDeleteAccount(null),
+              });
+            }}
           >
             I want to delete my account.
           </button>
         </div>
       </div>
+      {deleteAccount && <ConfirmationsModal modalData={deleteAccount} />}
     </>
   );
 }

@@ -137,9 +137,9 @@ const SubSectionModal = ({
 
 
   return (
-    <div className="">
-      <div className="absolute top-0 bottom-0 left-0 right-0 bg-richblack-600 opacity-75"></div>
-      <div className="absolute top-10 left-[40%] bg-richblack-800 px-4 py-4 h-[80vh] overflow-y-auto my-6 rounded-md scroll-m-0  ">
+    <div className="fixed inset-0 z-[1000] !mt-0 grid h-screen w-screen place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm">
+      {/* <div className="absolute top-0 bottom-0 left-0 right-0 bg-richblack-600 opacity-75"></div> */}
+      <div className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800 px-4 py-6">
         <div className="flex justify-between text-richblack-200">
           <p>
             {view && "Viewing"} {add && "Adding"} {edit && "Editing"} Lecture

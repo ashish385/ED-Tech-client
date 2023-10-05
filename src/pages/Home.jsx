@@ -10,6 +10,7 @@ import LearningLanguageSection from '../components/core/HomePage/LearningLanguag
 import InstructorSection from '../components/core/HomePage/InstructorSection';
 import ExploreMore from '../components/core/HomePage/ExploreMore';
 import Footer from "../components/common/Footer";
+import ReviewSlider from '../components/common/ReviewSlider';
 
 const Home = () => {
   return (
@@ -27,9 +28,7 @@ const Home = () => {
 
         <div className="text-center text-2xl md:text-4xl font-semibold mt-7">
           Empower Your Future with
-          <HighlightText
-            text={"Coding Skills"}
-          />
+          <HighlightText text={"Coding Skills"} />
         </div>
 
         <div className="mt-4 w-[90%] text-start md:text-center text-sm  md:text-lg font-bold text-richblack-300">
@@ -179,11 +178,13 @@ const Home = () => {
       {/* Section - 3 */}
       <div className="w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-8 first-letter: bg-richblack-900 text-white pt-8 mx-auto">
         <InstructorSection />
-        <h2 className=" text-start md:text-center text-2xl md:text-4xl font-semibold mt-8">
-          Review from other learners
-        </h2>
-
-        {/* Review slider here */}
+        {/* Reviws from Other Learner */}
+      </div>
+      <div className='w-11/12 mx-auto'>
+        <h1 className="text-center text-4xl font-semibold mt-8 text-white">
+          Reviews from other learners
+        </h1>
+        <ReviewSlider />
       </div>
 
       {/* Footer */}

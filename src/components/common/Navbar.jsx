@@ -3,12 +3,13 @@ import { Link, matchPath, useLocation } from "react-router-dom";
 import logo from "../../assets/Logo/Logo-Full-Light.png";
 import { NavbarLinks } from "../../data/navbar-links";
 import { useSelector } from "react-redux";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai";
 import ProfileDropdown from "../core/Auth/ProfileDropdown";
 import { apiConnector } from "../../services/apiconnector";
 import { categories } from '../../services/apis';
-// import { IoIosArrowDropdownCircle } from 'react-icons/io'
-import { BsChevronDown, BsSearch } from "react-icons/bs";
+import { ACCOUNT_TYPE } from "../../utils/constants";
+import { BsChevronDown } from "react-icons/bs";
+import Sidebar from "../core/Dashboard/Sidebar";
 
 
 
@@ -17,6 +18,7 @@ const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
   const { totalItems } = useSelector((state) => state.cart);
+  const [dropDownMenu, setDropDownMenu] = useState(false);
   const location = useLocation();
 
   const [subLinks, setSubLinks] = useState([]);
@@ -40,27 +42,33 @@ const Navbar = () => {
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname);
   };
+
+ 
   return (
     <>
-      <div className="h-14 flex flex-row justify-between items-center border-b-[1px] border-b-richblack-700">
-        <div className="flex w-11/12 max-w-maxContent items-baseline justify-between ">
-          <Link to={"/"}>
+      <div
+        className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
+          location.pathname !== "/" ? "bg-richblack-800" : ""
+        } transition-all duration-200`}
+      >
+        <div className="flex w-11/12 max-w-maxContent items-baseline justify-between  ">
+          <Link to={"/"} className="hidden sm:flex text">
             <img src={logo} alt="logo" width={160} height={32} loading="lazy" />
           </Link>
 
           {/* Nav links */}
           <nav>
-            <ul className="flex gap-x-6 text-richblack-25">
+            <ul className="flex items-center pl-2  gap-x-6 text-richblack-25">
               {NavbarLinks.map((link, index) => (
                 <li key={index}>
                   {link.title === "Catalog" ? (
                     <>
                       <div
                         className={`group relative flex cursor-pointer items-center gap-1 ${
-                          matchRoute("/catalog/:catalogName")
+                          matchRoute(`/catalog/:catalogName`)
                             ? "text-yellow-25"
                             : "text-richblack-25"
-                        }`}
+                        } text-sm md:text-base`}
                       >
                         <p>{link.title}</p>
                         <BsChevronDown />
@@ -68,7 +76,7 @@ const Navbar = () => {
                           <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5"></div>
                           {loading ? (
                             <p className="text-center text-white">Loading...</p>
-                          ) : subLinks.length  ? (
+                          ) : subLinks.length ? (
                             <>
                               {subLinks
                                 ?.filter(
@@ -100,7 +108,7 @@ const Navbar = () => {
                           matchRoute(link?.path)
                             ? "text-yellow-25"
                             : "text-richblack-25"
-                        }`}
+                        } text-sm md:text-base`}
                       >
                         {link.title}
                       </p>
@@ -111,29 +119,28 @@ const Navbar = () => {
             </ul>
           </nav>
 
-          {/* buttons */}
-          <div className="flex gap-8 text-center text-white items-center ">
-            {user && user?.accountType !== "Instructor" && (
-              <div className="flex gap-5 ">
-                <div>
-                  <BsSearch size={20} />
-                </div>
-                <Link to={"/dashboard/cart"} className="relative">
-                  <AiOutlineShoppingCart size={20} />
-                  {totalItems > 0 && <span>{totalItems}</span>}
-                </Link>
-              </div>
+          {/* Login / Signup / Dashboard */}
+          <div className="hidden items-center gap-x-4 sm:flex">
+            {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
+              <Link to="/dashboard/cart" className="relative">
+                <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
+                {totalItems > 0 && (
+                  <span className="absolute -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
             )}
-            {!token && (
-              <Link to={"/login"}>
-                <button className="border border-richblack-700 bg-richblack-800 px-3 py-2 text-richblack-100 rounded-md hover:bg-richblack-900 transition-all duration-200 scale-95">
+            {token === null && (
+              <Link to="/login">
+                <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
                   Log in
                 </button>
               </Link>
             )}
-            {!token && (
-              <Link to={"/signup"}>
-                <button className="border border-richblack-700 bg-richblack-800 px-3 py-2 text-richblack-100 rounded-md hover:bg-richblack-900 transition-all duration-200 scale-95">
+            {token === null && (
+              <Link to="/signup">
+                <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
                   Sign up
                 </button>
               </Link>
@@ -141,7 +148,23 @@ const Navbar = () => {
             {token !== null && <ProfileDropdown />}
           </div>
         </div>
+        <div className="mr-4 flex items-center   md:hidden">
+          <AiOutlineMenu
+            fontSize={24}
+            fill="#AFB2BF"
+            onClick={() => setDropDownMenu(!dropDownMenu)}
+          />
+        </div>
       </div>
+      {dropDownMenu && (
+        <div className="fixed z-50 text-white">
+          <div
+            className="fixed top-0 bottom-0 left-0 right-0 bg-richblack-600 opacity-0"
+            onClick={() => setDropDownMenu(false)}
+          ></div>
+          <Sidebar setDropDownMenu={setDropDownMenu} />
+        </div>
+      )}
     </>
   );
 };

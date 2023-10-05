@@ -59,7 +59,7 @@ const RenderSteps = () => {
         ))}
       </div>
 
-      <div className="relative mb-16 flex w-full select-none justify-between">
+      <div className="relative mb-16 flex w-full select-none justify-between overflow-x-auto">
         {steps.map((item) => (
           <>
             <div
@@ -69,7 +69,7 @@ const RenderSteps = () => {
               <p
                 className={`text-sm ${
                   step >= item.id ? "text-richblack-5" : "text-richblack-500"
-                }`}
+                } ${item.id===3 ?"text-xs":""}`}
               >
                 {item.title}
               </p>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getUserEnrolledCourses } from '../../../services/operations/profileAPI';
-import {  SlOptionsVertical } from "react-icons/sl";
 import { useNavigate } from 'react-router-dom';
 import ProgressBar from '@ramonak/react-progress-bar';
 
@@ -14,7 +13,6 @@ import ProgressBar from '@ramonak/react-progress-bar';
 const EnrolledCourses = () => {
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
-  const [refresfPage, setRefresfPage] = useState(true);
   // const token = window.localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null;
 
   const [enrolledCourses, setEnrolledCourses] = useState(null);
@@ -31,16 +29,6 @@ const EnrolledCourses = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
-
-
-  // useEffect(() => {
-  //   if (refresfPage) {
-  //     getEnrolledCourses();
-  //     setRefresfPage(false);
-  //     console.log("enrolled", enrolledCourses);
-  //   }
-  // })
 
   console.log("enrolled Courseses data ===>", enrolledCourses);
   return (
@@ -98,8 +86,7 @@ const EnrolledCourses = () => {
                 <p>Progress: {course.progressPercentage || 0}%</p>
                 <ProgressBar
                   completed={course.progressPercentage || 0}
-                  height="8px"
-                  isLabelVisible={true}
+                  height="10px"
                 />
               </div>
             </div>

@@ -41,10 +41,10 @@ const CoursesTable = ({ courses, setCourses }) => {
     <div className="w-full">
       <Table className="w-full rounded-xl border-2 border-richblack-700 ">
         <Thead className="bg-pink-400">
-            <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-700 px-6 py-2">
-                      {/* <Th>Number</Th> */}
-            <Th className="flex-1 text-left text-sm font-medium uppercase text-richblack-5">
-              Courses
+          <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-700 px-6 py-2">
+            {/* <Th>Number</Th> */}
+            <Th className="flex-1 text-left text-sm font-medium uppercase text-richblack-5 ">
+              <span className="text-white">Courses</span>
             </Th>
             <Th className="text-left text-sm font-medium uppercase text-richblack-100">
               Duration
@@ -79,8 +79,8 @@ const CoursesTable = ({ courses, setCourses }) => {
                   />
                   <div className="flex flex-col justify-between">
                     <p className="text-lg font-semibold text-richblack-5">
-                                {course.courseName}
-                                {/* Python */}
+                      {course.courseName}
+                      {/* Python */}
                     </p>
                     <p className="text-xs text-richblack-300">
                       {course.courseDescription.split(" ").length >
@@ -90,7 +90,7 @@ const CoursesTable = ({ courses, setCourses }) => {
                             .slice(0, TRUNCATE_LENGTH)
                             .join(" ") + "..."
                         : course.courseDescription}
-                                {/* python is a programming */}
+                      {/* python is a programming */}
                     </p>
                     <p className="text-[12px] text-white">
                       Created: {formattedDate(course.createdAt)}
@@ -111,7 +111,7 @@ const CoursesTable = ({ courses, setCourses }) => {
                   </div>
                 </Td>
                 <Td className="text-sm font-medium text-richblack-100">
-                  2hr 30min
+                  {course?.totalDuration}
                 </Td>
                 <Td className="text-sm font-medium text-richblack-100">
                   ₹{course.price}
@@ -155,7 +155,9 @@ const CoursesTable = ({ courses, setCourses }) => {
           )}
         </Tbody>
       </Table>
-      {confirmationModal && <ConfirmationsModal modalData={confirmationModal} />}
+      {confirmationModal && (
+        <ConfirmationsModal modalData={confirmationModal} />
+      )}
     </div>
   );
 };

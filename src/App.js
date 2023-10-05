@@ -19,14 +19,15 @@ import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
 // import Wishlist from "./components/core/Dashboard/Wishlist";
 import Cart from "./components/core/Dashboard/Cart";
 import { ACCOUNT_TYPE } from "./utils/constants";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AddCourse from "./components/core/Dashboard/AddCourse";
 import MyCourses from "./components/core/Dashboard/MyCourses";
-import EditCourse from './components/core/Dashboard/EditCourse/EditCourse'
+import EditCourse from "./components/core/Dashboard/EditCourse/EditCourse";
 import Catalog from "./pages/Catalog";
 import CourseDetails from "./pages/CourseDetails";
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
+import Instructor from "./components/core/Dashboard/Instructor";
 function App() {
   //  const dispatch = useDispatch();
 
@@ -109,6 +110,7 @@ function App() {
 
               {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
                 <>
+                  <Route path="dashboard/instructor" element={<Instructor />} />
                   <Route path="dashboard/add-course" element={<AddCourse />} />
                   <Route path="dashboard/my-courses" element={<MyCourses />} />
                   <Route
@@ -125,14 +127,14 @@ function App() {
                 </PrivateRoute>
               }
             >
-              {
-                user?.accountType === ACCOUNT_TYPE.STUDENT && (
-                  <>
-                    <Route path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
-                      element={<VideoDetails /> } />
-                  </>
-                )
-              }
+              {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+                <>
+                  <Route
+                    path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                    element={<VideoDetails />}
+                  />
+                </>
+              )}
             </Route>
 
             <Route path="*" element={<Error />} />

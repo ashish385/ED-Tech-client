@@ -9,7 +9,7 @@ import RatingStars from "../components/common/RatingStars";
 import { BsCameraVideo, BsInfoCircle } from "react-icons/bs";
 import {FaAngleDown, FaGlobeAsia } from "react-icons/fa"; /*  , */
 // import { AiOutlineClockCircle } from "react-icons/ai";
-import { PiCursorLight, PiTelevisionBold } from "react-icons/pi";
+// import { PiCursorLight, PiTelevisionBold } from "react-icons/pi";
 // import { FaMobileRetro } from "react-icons/fa6";
 // import { LuFileCheck } from "react-icons/lu";
 import { buyCourse } from "../services/operations/studentsFeaturesAPI";
@@ -24,7 +24,7 @@ const CourseDetails = () => {
   const { user } = useSelector((state) => state.profile);
   const { token } = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.profile);
-  const { paymentLoading } = useSelector((state) => state.course);
+  // const { paymentLoading } = useSelector((state) => state.course);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { courseId } = useParams();

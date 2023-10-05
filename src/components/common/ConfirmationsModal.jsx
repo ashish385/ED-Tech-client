@@ -4,13 +4,9 @@ import IconBtn from "../common/IconBtn";
 const ConfirmationsModal = ({ modalData }) => {
   console.log("btn1Text",modalData);
   return (
-    <div>
-      <div>
-        <div
-          className="fixed top-0 left-0 bottom-0 right-0 w-full h-full bg-richblack-700 opacity-70"
-          onClick={modalData?.btn2Handler}
-        ></div>
-        <div className="fixed bg-richblack-800 shadow-2xl top-[20%] left-[37%] text-richblack-5 px-4 py-4 rounded-md">
+    <>
+      <div className="absolute inset-0 z-[1000] !mt-0 grid h-screen w-screen place-items-center overflow-hidden bg-white bg-opacity-10 backdrop-blur-sm">
+        <div className="absolute top-1/4 bg-richblack-800 shadow-2xl  text-richblack-5 px-4 py-4 rounded-md">
           <p className="text-2xl text-center mt-3 italic font-bold">
             {modalData.text1}
           </p>
@@ -32,7 +28,7 @@ const ConfirmationsModal = ({ modalData }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

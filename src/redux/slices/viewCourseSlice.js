@@ -2,28 +2,28 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   courseSectionData: [],
-  courseaEntireData: [],
+  courseEntireData: [],
   completedLectures: [],
-  totaNoOfLecture: 0,
+  totalNoOfLectures: 0,
 };
 
 const viewCourseSlice = createSlice({
   name: "viewCourse",
-  initialState: initialState,
+  initialState,
   reducers: {
     setCourseSectionData: (state, action) => {
       state.courseSectionData = action.payload;
     },
-    setCourseEntireData: (state, action) => {
-      state.courseSectionData = action.payload;
+    setEntireCourseData: (state, action) => {
+      state.courseEntireData = action.payload;
     },
-    setTotalNoOfLecture: (state, action) => {
-      state.totaNoOfLecture = action.payload;
+    setTotalNoOfLectures: (state, action) => {
+      state.totalNoOfLectures = action.payload;
     },
-    setCompletedLecture: (state, action) => {
+    setCompletedLectures: (state, action) => {
       state.completedLectures = action.payload;
     },
-    updatedCompletedLecture: (state, action) => {
+    updateCompletedLectures: (state, action) => {
       state.completedLectures = [...state.completedLectures, action.payload];
     },
   },
@@ -31,9 +31,10 @@ const viewCourseSlice = createSlice({
 
 export const {
   setCourseSectionData,
-  setCompletedLecture,
-  setCourseEntireData,
-  setTotalNoOfLecture,
-  updatedCompletedLecture,
+  setEntireCourseData,
+  setTotalNoOfLectures,
+  setCompletedLectures,
+  updateCompletedLectures,
 } = viewCourseSlice.actions;
+
 export default viewCourseSlice.reducer;
